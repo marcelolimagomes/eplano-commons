@@ -1,0 +1,8 @@
+br/com/eplano/commons/dto/EnumNameValueDTO.class
+br/com/eplano/commons/dto/ProfileDTO.class
+br/com/eplano/commons/controller/AbstractController.class
+br/com/eplano/commons/client/UserClient.class
+br/com/eplano/commons/dto/BaseDTO.class
+br/com/eplano/commons/exceptions/UsuarioNaoAutorizadoException.class
+br/com/eplano/commons/dto/UserDTO.class
+br/com/eplano/commons/utils/UserContextUtils.class
