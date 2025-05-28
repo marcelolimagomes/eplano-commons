@@ -2,19 +2,18 @@ package br.com.eplano.commons.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor
 public class ProfileDTO {
     private Long id;
     private String name;
+    private String bio;
+    private Boolean notifications = false;
     private Integer consultasIARealizadas;
     private Integer countNotificacoesLeadUsuario = 0;
-
-    // Construtor padrão
-    public ProfileDTO() {
-    }
+    private byte[] photo;
 
 }

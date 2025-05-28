@@ -25,7 +25,7 @@ public abstract class AbstractController {
         String email = UserContextUtils.getCurrentUserEmail();
         log.debug("[AbstractController]: Obtendo usuário logado: {}", email);
         if (email != null) {
-            UserDTO user = userClient.getUserByEmail(email);
+            UserDTO user = userClient.getUserByEmail(email).orElse(null);
             if (user != null)
                 return user;
         }
