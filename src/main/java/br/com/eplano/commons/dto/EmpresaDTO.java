@@ -3,7 +3,7 @@ package br.com.eplano.commons.dto;
 import lombok.Data;
 
 @Data
-public class EmpresaDTO {
+public class EmpresaDTO implements EntityDTO {
     private Long id;
     private String cnpj;
     private String nomeEmpresarial;

@@ -4,7 +4,9 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.eplano.commons.dto.EntityDTO;
 import br.com.eplano.commons.dto.EnumNameValueDTO;
+import br.com.eplano.commons.entity.BaseEntity;
 import br.com.eplano.commons.interfaces.DescricaoEnum;
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,7 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 public class Mapper {
 
     // Converte entidade para DTO
-    public static <D, E> D fromEntity(E entity, Class<D> dtoClass) {
+    @SuppressWarnings("unchecked")
+    public static <D extends EntityDTO, E extends BaseEntity> D fromEntity(E entity, Class<D> dtoClass) {
         if (entity == null)
             return null;
         try {
@@ -41,7 +44,7 @@ public class Mapper {
                     else if (value != null
                             && isCustomClass(dtoField.getType())
                             && !dtoField.getType().equals(EnumNameValueDTO.class)) {
-                        Object relatedDto = fromEntity(value, dtoField.getType());
+                        Object relatedDto = fromEntity((BaseEntity) value, (Class<EntityDTO>) dtoField.getType());
                         dtoField.set(dto, relatedDto);
                     }
                     // Lista de objetos
@@ -52,7 +55,7 @@ public class Mapper {
                         if (dtoListType != null) {
                             List<Object> dtoList = new ArrayList<>();
                             for (Object item : (List<?>) value) {
-                                dtoList.add(fromEntity(item, dtoListType));
+                                dtoList.add(fromEntity((BaseEntity) item, (Class<EntityDTO>) dtoListType));
                             }
                             dtoField.set(dto, dtoList);
                         }
@@ -74,7 +77,7 @@ public class Mapper {
 
     // Converte DTO para entidade
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    public static <E, D> E toEntity(D dto, Class<E> entityClass) {
+    public static <E extends BaseEntity, D extends EntityDTO> E toEntity(D dto, Class<E> entityClass) {
         if (dto == null)
             return null;
         try {
@@ -99,7 +102,8 @@ public class Mapper {
                     else if (value != null
                             && isCustomClass(entityField.getType())
                             && !value.getClass().equals(EnumNameValueDTO.class)) {
-                        Object relatedEntity = toEntity(value, entityField.getType());
+                        BaseEntity relatedEntity = toEntity((EntityDTO) value,
+                                (Class<BaseEntity>) entityField.getType());
                         entityField.set(entity, relatedEntity);
                     }
                     // Lista de objetos
@@ -110,7 +114,7 @@ public class Mapper {
                         if (entityListType != null) {
                             List<Object> entityList = new ArrayList<>();
                             for (Object item : (List<?>) value) {
-                                entityList.add(toEntity(item, entityListType));
+                                entityList.add(toEntity((EntityDTO) item, (Class<BaseEntity>) entityListType));
                             }
                             entityField.set(entity, entityList);
                         }

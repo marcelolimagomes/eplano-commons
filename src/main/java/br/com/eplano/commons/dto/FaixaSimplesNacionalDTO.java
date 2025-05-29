@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
-public class FaixaSimplesNacionalDTO {
+public class FaixaSimplesNacionalDTO implements EntityDTO {
     private Integer id;
     private String anexo;
     private String faixa;

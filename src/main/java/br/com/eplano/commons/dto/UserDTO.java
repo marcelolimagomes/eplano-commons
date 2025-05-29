@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class UserDTO {
+public class UserDTO implements EntityDTO {
     private Long id;
     private String email;
     private String password;

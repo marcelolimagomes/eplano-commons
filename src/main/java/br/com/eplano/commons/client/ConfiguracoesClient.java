@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import br.com.eplano.commons.dto.ConfiguracoesDTO;
 
-@FeignClient(name = "api-configuracao-eplano") // O nome deve ser igual ao registrado no Eureka pelo serviço de
-                                               // configuração
+@FeignClient(name = "api-configuracao-eplano") 
 public interface ConfiguracoesClient {
 
     @GetMapping("/api/v1/configuracoes")

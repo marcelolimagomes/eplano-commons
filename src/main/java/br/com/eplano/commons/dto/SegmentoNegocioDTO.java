@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class SegmentoNegocioDTO {
+public class SegmentoNegocioDTO implements EntityDTO{
     private Integer id;
     private String codigo;
     private String descricao;

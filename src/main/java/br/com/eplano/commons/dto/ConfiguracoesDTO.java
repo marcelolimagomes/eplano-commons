@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
-public class ConfiguracoesDTO {
+public class ConfiguracoesDTO implements EntityDTO {
     private Integer id;
     private Integer quantidadeMesesProjecaoFluxoCaixa;
     private Float fluxoCaixaPessimista;

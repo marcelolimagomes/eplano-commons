@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProfileDTO {
+public class ProfileDTO implements EntityDTO {
     private Long id;
     private String name;
     private String bio;
