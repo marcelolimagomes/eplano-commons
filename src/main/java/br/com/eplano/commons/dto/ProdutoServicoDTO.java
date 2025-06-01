@@ -1,7 +1,5 @@
 package br.com.eplano.commons.dto;
 
-import java.util.List;
-
 import lombok.Data;
 
 @Data
@@ -10,6 +8,6 @@ public class ProdutoServicoDTO implements EntityDTO {
     private String nomeProdutoServico;
     private String descricaoProdutoServico;
     private Long empresaId;
-    private List<ReceitaDTO> receitas;
+    // private List<ReceitaDTO> receitas;
     private EnumNameValueDTO tipoProdutoServico;
 }

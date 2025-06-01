@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 
-public class ReceitaDTO implements EntityDTO{
+public class ReceitaDTO implements EntityDTO {
     private Long id;
     private Float precoVenda;
     private Integer quantidadeEstimada;

@@ -3,6 +3,7 @@ package br.com.eplano.commons.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @AllArgsConstructor
@@ -14,6 +15,7 @@ public class ProfileDTO implements EntityDTO {
     private Boolean notifications = false;
     private Integer consultasIARealizadas;
     private Integer countNotificacoesLeadUsuario = 0;
+    @ToString.Exclude
     private byte[] photo;
 
 }

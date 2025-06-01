@@ -3,7 +3,7 @@ package br.com.eplano.commons.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.eplano.commons.client.UserClient;
+import br.com.eplano.commons.client.ApiAuthClient;
 import br.com.eplano.commons.dto.UserDTO;
 import br.com.eplano.commons.exceptions.UsuarioNaoAutorizadoException;
 import br.com.eplano.commons.utils.UserContextUtils;
@@ -13,10 +13,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public abstract class AbstractController {
 
-    private UserClient userClient;
+    private ApiAuthClient userClient;
 
     @Autowired
-    protected void setUserClient(UserClient userClient) {
+    protected void setUserClient(ApiAuthClient userClient) {
         this.userClient = userClient;
     }
 

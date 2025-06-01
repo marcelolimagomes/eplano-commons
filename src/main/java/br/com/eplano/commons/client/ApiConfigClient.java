@@ -11,12 +11,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import br.com.eplano.commons.dto.ConfiguracoesDTO;
 import br.com.eplano.commons.dto.EmpresaDTO;
 import br.com.eplano.commons.dto.FaixaSimplesNacionalDTO;
 
 @FeignClient(name = "api-configuracao-eplano")
-public interface FaixaSimplesNacionalClient {
+public interface ApiConfigClient {
+    // ConfiguracoesController
+    @GetMapping("/api/v1/configuracoes")
+    Optional<ConfiguracoesDTO> getConfiguracoes();
 
+    // FaixaNacionalController
     @GetMapping("/api/v1/faixa-simples-nacional")
     List<FaixaSimplesNacionalDTO> getAll();
 
@@ -34,4 +39,15 @@ public interface FaixaSimplesNacionalClient {
 
     @PostMapping("/api/v1/faixa-simples-nacional/calcular-imposto")
     EmpresaDTO calcularImpostoEmpresa(@RequestBody EmpresaDTO empresa);
+
+    // EmpresaController
+    @GetMapping("/api/v1/empresa/all")
+    List<EmpresaDTO> getAllEmpresas();
+
+    @GetMapping("/api/v1/empresa")
+    Optional<EmpresaDTO> getEmpresa();
+
+    @GetMapping("/api/v1/empresa/{id}")
+    EmpresaDTO getEmpresaById(@PathVariable("id") Long id);
+
 }

@@ -40,6 +40,10 @@ public class Mapper {
                         }
                         dtoField.set(dto, new EnumNameValueDTO(descricao, ((Enum<?>) value).name()));
                     }
+                    // Campo array (ex: byte[])
+                    else if (value != null && dtoField.getType().isArray()) {
+                        dtoField.set(dto, value);
+                    }
                     // Relacionamento: objeto customizado
                     else if (value != null
                             && isCustomClass(dtoField.getType())
@@ -55,7 +59,8 @@ public class Mapper {
                         if (dtoListType != null) {
                             List<Object> dtoList = new ArrayList<>();
                             for (Object item : (List<?>) value) {
-                                dtoList.add(fromEntity((BaseEntity) item, (Class<EntityDTO>) dtoListType));
+                                if (item != null)
+                                    dtoList.add(fromEntity((BaseEntity) item, (Class<EntityDTO>) dtoListType));
                             }
                             dtoField.set(dto, dtoList);
                         }
@@ -97,6 +102,10 @@ public class Mapper {
                         String name = (String) value.getClass().getMethod("getId").invoke(value);
                         Object enumValue = Enum.valueOf((Class<Enum>) entityField.getType(), name);
                         entityField.set(entity, enumValue);
+                    }
+                    // Campo array (ex: byte[])
+                    else if (value != null && entityField.getType().isArray()) {
+                        entityField.set(entity, value);
                     }
                     // Relacionamento: objeto customizado
                     else if (value != null
@@ -167,7 +176,8 @@ public class Mapper {
                     return (Class<?>) args[0];
                 }
             }
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            log.error("Erro ao recuperar getListGenericType", e);
         }
         return null;
     }

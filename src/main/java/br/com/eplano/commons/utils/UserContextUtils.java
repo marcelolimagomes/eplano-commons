@@ -7,16 +7,21 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class UserContextUtils {
 
-    private static final String USER_EMAIL_HEADER = "X-User-Email";
-    private static final String USER_ROLES_HEADER = "X-User-Roles";
-    private static final String USER_ID_HEADER = "X-User-Id";
+    public static final String USER_EMAIL_HEADER = "x-user-email";
+    public static final String USER_ROLES_HEADER = "x-user-roles";
+    public static final String USER_ID_HEADER = "x-user-id";
 
     public static String getCurrentUserEmail() {
         HttpServletRequest request = getCurrentRequest();
-        return request != null ? request.getHeader(USER_EMAIL_HEADER) : null;
+        String userEmailHeader = request != null ? request.getHeader(USER_EMAIL_HEADER) : null;
+        return userEmailHeader != null && !userEmailHeader.isEmpty()
+                ? userEmailHeader
+                : null;
     }
 
     public static List<String> getCurrentUserRoles() {
@@ -30,13 +35,10 @@ public class UserContextUtils {
     public static String getCurrentUserId() {
         HttpServletRequest request = getCurrentRequest();
         String userIdHeader = request != null ? request.getHeader(USER_ID_HEADER) : null;
-        try {
-            return userIdHeader != null && !userIdHeader.isEmpty()
-                    ? userIdHeader
-                    : null;
-        } catch (NumberFormatException e) {
-            return null;
-        }
+        return userIdHeader != null && !userIdHeader.isEmpty()
+                ? userIdHeader
+                : null;
+
     }
 
     public static boolean hasRole(String role) {
@@ -49,6 +51,17 @@ public class UserContextUtils {
 
     private static HttpServletRequest getCurrentRequest() {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+
+        log.debug("Obtendo request atual: {}",
+                attributes != null ? attributes.getRequest().getRequestURI() : "Nenhum request encontrado");
+
+        if (attributes != null && attributes.getRequest() != null) {
+            attributes.getRequest().getHeaderNames().asIterator().forEachRemaining(headerName -> {
+                String headerValue = attributes.getRequest().getHeader(headerName);
+                log.debug("Header received: {} = {}", headerName, headerValue);
+            });
+        }
+
         return attributes != null ? attributes.getRequest() : null;
     }
 }
